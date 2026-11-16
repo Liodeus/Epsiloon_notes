@@ -1,0 +1,37 @@
+name: Publier le carnet chiffré
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['dist/**', '.github/workflows/pages.yml']
+permissions:
+  contents: read
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier que seul le carnet chiffré est publié
+        run: |
+          test -f dist/index.html
+          grep -q 'staticryptEncryptedMsgUniqueVariableName' dist/index.html
+          test "$(find dist -type f | wc -l)" -eq 3
+          test -f dist/.nojekyll
+          test -f dist/robots.txt
+          if find dist -type f -iname '*.pdf' | grep -q .; then exit 1; fi
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Déployer
+        id: deployment
+        uses: actions/deploy-pages@v4

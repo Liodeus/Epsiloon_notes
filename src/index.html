@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="light dark">
+  <title>Le carnet Epsiloon</title>
+  <meta name="description" content="Mon carnet personnel de lectures scientifiques.">
+  <style>/* APP_STYLES */</style>
+</head>
+<body>
+  <a class="skip" href="#results">Aller aux fiches</a>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Accueil du carnet"><span class="brand-sign" aria-hidden="true">∞</span><span>le carnet <strong>epsiloon</strong></span></a>
+    <nav class="topnav" aria-label="Navigation principale">
+      <button id="view-cards" class="nav-button active" type="button" aria-pressed="true">Les fiches</button>
+      <button id="view-issues" class="nav-button" type="button" aria-pressed="false">Les numéros</button>
+      <button id="theme-toggle" class="icon-button" type="button" aria-label="Changer de thème">◐</button>
+      <button id="lock" class="lock-button" type="button">Verrouiller <span aria-hidden="true">↗</span></button>
+    </nav>
+  </header>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Filtres de la bibliothèque">
+      <div class="side-heading">MA BIBLIOTHÈQUE</div>
+      <nav class="scope-nav" aria-label="Sélection des fiches">
+        <button type="button" data-scope="all" class="scope-button active" aria-pressed="true"><span>Toutes les fiches</span><span id="count-all"></span></button>
+        <button type="button" data-scope="favorites" class="scope-button" aria-pressed="false"><span>☆ Mes favoris</span><span id="count-favorites"></span></button>
+        <button type="button" data-scope="review" class="scope-button" aria-pressed="false"><span>↻ À revoir</span><span id="count-review"></span></button>
+      </nav>
+      <div class="filter-fields">
+        <label for="issue-filter">Numéro</label><select id="issue-filter"><option value="">Tous les numéros</option></select>
+        <label for="theme-filter">Thème</label><select id="theme-filter"><option value="">Tous les thèmes</option></select>
+        <label for="format-filter">Format</label><select id="format-filter"><option value="">Tous les formats</option><option value="enquête">Enquêtes</option><option value="dossier">Dossiers</option><option value="article">Articles</option><option value="brève">Brèves</option><option value="image">En images</option></select>
+        <button id="reset" class="reset-button" type="button">Réinitialiser les filtres</button>
+      </div>
+      <div class="side-bottom"><span class="tiny-dot" aria-hidden="true"></span> Mon espace de lecture<span>Depuis septembre 2025</span></div>
+    </aside>
+    <main id="main-content">
+      <section id="cards-view" aria-labelledby="page-title">
+        <div class="eyebrow">LES IDÉES RESTENT.</div>
+        <div class="page-heading"><div><h1 id="page-title">Ce que j’ai retenu.</h1><p class="subtitle">Une lecture, une idée. Le plaisir de s’en souvenir.</p></div><span class="collection-label" id="collection-label"></span></div>
+        <form class="search-form" role="search"><span class="search-symbol" aria-hidden="true">⌕</span><label class="sr-only" for="search">Rechercher dans les fiches</label><input id="search" type="search" autocomplete="off" placeholder="Un sujet, un concept, un souvenir…"><kbd aria-hidden="true">/</kbd></form>
+        <div class="results-toolbar"><p id="results-count" role="status" aria-live="polite"></p><label class="sort-label" for="sort">Trier <select id="sort"><option value="relevance">Pertinence / récents</option><option value="newest">Plus récents</option><option value="oldest">Plus anciens</option><option value="title">Titre A → Z</option></select></label></div>
+        <div id="active-filters" class="active-filters"></div>
+        <div id="results" class="cards-grid"></div>
+        <div id="empty" class="empty-state" hidden><div aria-hidden="true">⌕</div><h2>Aucun souvenir par ici.</h2><p>Essaie un autre mot ou élargis tes filtres.</p><button id="empty-reset" class="primary-button" type="button">Afficher toutes les fiches</button></div>
+        <button id="more" class="more-button" type="button" hidden>Afficher davantage de fiches</button>
+      </section>
+      <section id="issues-view" aria-labelledby="issues-title" hidden>
+        <div class="eyebrow">AU FIL DES MOIS.</div><h1 id="issues-title">La collection.</h1><p class="subtitle">Chaque numéro, les idées qu’il a laissées.</p><div id="issues-grid" class="issues-grid"></div>
+      </section>
+      <footer class="site-footer"><span>Carnet personnel · Synthèses de lecture</span><span>Connaissances replacées à la date des articles.</span></footer>
+    </main>
+  </div>
+  <dialog id="card-dialog" aria-labelledby="detail-title"><div class="dialog-controls"><span id="detail-issue"></span><button id="close-dialog" class="icon-button" type="button" aria-label="Fermer la fiche">×</button></div><div id="detail-content"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script id="carnet-data" type="application/json">/* APP_DATA */</script>
+  <script>/* APP_SCRIPT */</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+node_modules/
+private/
+.cache/
+.env
+.env.*
+!.env.example
+.staticrypt.json
+*.pdf
+*.pdf.part
+*.log
+coverage/
+playwright-report/
+test-results/
+.DS_Store
