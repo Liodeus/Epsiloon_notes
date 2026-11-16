@@ -1,7 +1,7 @@
 export const THEMES = ['Espace', 'Physique', 'Vivant', 'Santé', 'Environnement', 'Technologie', 'Société'];
 export const normalize = value => String(value ?? '').normalize('NFD').replace(/\p{Diacritic}/gu, '').toLocaleLowerCase('fr').replace(/[’']/g, ' ').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
 export function indexCards(cards) {
-  return cards.map(card => ({ ...card, search: normalize([card.title, card.oneLiner, card.summary, card.theme, card.author, ...(card.takeaways || []), ...(card.keywords || [])].join(' ')), titleSearch: normalize(card.title) }));
+  return cards.map(card => ({ ...card, search: normalize([card.title, card.sourceTitle, card.searchTerms, card.oneLiner, card.summary, card.theme, card.author, ...(card.takeaways || []), ...(card.keywords || [])].join(' ')), titleSearch: normalize(card.title) }));
 }
 export function findCards(cards, state, personal = {}) {
   const terms = normalize(state.query).split(' ').filter(Boolean);

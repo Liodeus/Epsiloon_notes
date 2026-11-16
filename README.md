@@ -2,6 +2,8 @@
 
 Carnet personnel de lectures scientifiques, conçu pour GitHub Pages et protégé par StatiCrypt. La recherche, les filtres, les favoris et les fiches fonctionnent dans le navigateur. Aucun serveur ni compte supplémentaire n'est nécessaire.
 
+Le carnet s’ouvre sur les numéros. L’édition de lecture regroupe les notes en **une fiche courte par article**, avec un résumé, deux ou trois points à retenir et cinq mots clés au maximum. Les encadrés ne créent plus de fiches séparées. Les brèves et images font l’objet d’une petite sélection de huit repères au maximum par numéro, accessible en bas de sa liste d’articles.
+
 ## Ouvrir et reconstruire le carnet
 
 Node.js 22 ou plus récent est nécessaire pour reconstruire le site.
@@ -41,6 +43,7 @@ private/
   sources/catalog.json   Numéros accessibles dans l'abonnement
   sources/epsiloon-*/     Sommaires et textes intégraux de travail
   data/epsiloon-*.json    Fiches originales avant chiffrement
+  editorial/             Synthèses regroupées par article
   coverage/              Exclusions explicites et contrôle des sommaires
   preview/index.html     Aperçu de travail en clair
   build-report.json      Bilan du dernier export
@@ -79,6 +82,8 @@ Une fiche utilise ce schéma :
 ```
 
 Thèmes : Espace, Physique, Vivant, Santé, Environnement, Technologie, Société. Formats : enquête, dossier, article, brève, image. Les rubriques regroupant plusieurs sujets peuvent donner plusieurs fiches avec le même `sourceEntity` et des identifiants distincts.
+
+Ces fichiers sont les notes de travail locales. `scripts/compile-articles.mjs` regroupe les entrées partageant le même `sourceEntity` avant l’export et sépare les petites actualités des articles. Les corrections de synthèse peuvent être enregistrées dans `private/editorial/article-overrides.json`, avec une clé par identifiant `entity://…` et les champs `title`, `summary`, `takeaways` ou `keywords`. Les identifiants des anciennes fiches sont conservés comme alias pour les favoris et liens existants.
 
 Chaque numéro possède aussi un bilan `private/coverage/IDENTIFIANT.json` de la forme `{"issueId":"epsiloon-51","excluded":[{"sourceEntity":"entity://identifiant","title":"Titre de l'entrée","reason":"Motif d'exclusion"}]}`. Les entrées non scientifiques (liste des chercheurs, annonces, citations seules) y sont consignées ; les sujets scientifiques sont rattachés aux fiches via `sourceEntity`.
 
